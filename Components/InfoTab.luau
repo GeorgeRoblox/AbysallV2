@@ -1,80 +1,62 @@
 return function(Window)
-	local LCH = {
-		"[SCRIPT]",
-		"Released Abysall V2",
-		"[DOORS]",
-		"<font color='rgb(0, 255, 0)'>+ Added Anti Scribbles.</font>",
-		"<font color='rgb(0, 255, 0)'>+ Added Stall Stampede of Drones.</font>",
-		"<font color='rgb(0, 255, 0)'>+ Added Anti Alma.</font>",
-		"<font color='rgb(0, 255, 0)'>+ Added Remove Ransom.</font>",
-		"<font color='rgb(255, 0, 0)'>- Removed No A-90 Damage.</font>",
-	}
+    local LatestChangelog = {
+        "11/7/2026",
+        "<font color='rgb(0, 255, 0)'>+ Added Entity ESP Selection</font>",
+		"<font color='rgb(0, 255, 0)'>+ Added Item Notifier</font>",
+		"<font color='rgb(0, 255, 0)'>+ Added Remove Surge</font>",
+		"<font color='rgb(0, 255, 0)'>+ Added Death Farm</font>",
+		"<font color='rgb(0, 255, 0)'>+ Fixed Some Broken Features (Bypass Eyes, etc)</font>",
+    }
 
-	local function CloneReference(Object)
-		if BlackKing and BlackKing.Environment.cloneref then
-			return BlackKing.Environment.cloneref(Object)
-		else
-			return Object
-		end
-	end
+    local function CloneReference(Object)
+        if Abysall and Abysall.Environment.cloneref then
+            return Abysall.Environment.cloneref(Object)
+        else
+            return Object
+        end
+    end
 
-	local Services = setmetatable({}, {
-		__index = function(self, Name)
-			return CloneReference(game:GetService(Name))
-		end
-	})
+    local Services = setmetatable({}, {
+        __index = function(self, Name)
+            return CloneReference(game:GetService(Name))
+        end
+    })
 
-	local Library = BlackKing.Interface.Library
-	local SaveManager = BlackKing.Interface.SaveManager
-	local ThemeManager = BlackKing.Interface.ThemeManager
+    local Library = Abysall.Interface.Library
+    local SaveManager = Abysall.Interface.SaveManager
+    local ThemeManager = Abysall.Interface.ThemeManager
 
-	local Toggles = Library.Toggles
-	local Options = Library.Options
+    local Toggles = Library.Toggles
+    local Options = Library.Options
 
-	local LocalPlayer = Services.Players.LocalPlayer
-	local InfoTab = Window:AddTab("Info", "user")
+    local LocalPlayer = Services.Players.LocalPlayer
+    local InfoTab = Window:AddTab("Info", "user")
 
-	local User = InfoTab:AddLeftGroupbox("User", "user")
+    local User = InfoTab:AddLeftGroupbox("User Info")
 
-	local ImageSize = Enum.ThumbnailSize.Size420x420
-	local ImageType = Enum.ThumbnailType.HeadShot
+    local ImageSize = Enum.ThumbnailSize.Size420x420
+    local ImageType = Enum.ThumbnailType.HeadShot
 
-	local Content = Services.Players:GetUserThumbnailAsync(LocalPlayer.UserId, ImageType, ImageSize)
+    local Content = Services.Players:GetUserThumbnailAsync(LocalPlayer.UserId, ImageType, ImageSize)
 
-	User:AddImage("UserIcon", {
-		Image = Content
-	})
+    User:AddImage("UserIcon", {
+        Image = Content
+    })
 
-	local Hour = os.date("*t").hour
-	local Greeting
-	if Hour >= 5 and Hour < 12 then
-		Greeting = "Good Morning"
-	elseif Hour >= 12 and Hour < 17 then
-		Greeting = "Good Afternoon"
-	elseif Hour >= 17 and Hour < 21 then
-		Greeting = "Good Evening"
-	else
-		Greeting = "Good Night"
-	end
-	User:AddLabel(Greeting .. ", " .. LocalPlayer.Name .. ", ty for using this script you executed: " .. (BlackKing.TotalExecutions and tostring(BlackKing.TotalExecutions) or "N/A") .. " times.", true)
-	User:AddDivider()
-	User:AddButton("Copy Discord Invite", function()
-		toclipboard("https://dsc.gg/BlackKing")
-		Library:Notify("Discord invite copied.")
-	end)
+    User:AddLabel("ID: " .. LocalPlayer.Name, true)
+    User:AddLabel("Total Executions: " .. (Abysall.TotalExecutions and Abysall.TotalExecutions or "N/A"), true)
 
-	local GameList = {
-		[2440500124] = "Doors",
-	}
-	local CurrentGame = GameList[game.GameId] or "Unknown (" .. game.GameId .. ")"
+    local Changelog = InfoTab:AddRightGroupbox("Changelog")
+    for Index, Change in pairs(LatestChangelog) do
+        Changelog:AddLabel(Change, true)
+    end
 
-	local Name, Version = Abysall.Environment.identifyexecutor()
+    local Name, Version = Abysall.Environment.identifyexecutor()
     local Executor = InfoTab:AddRightGroupbox("Executor Info")
     Executor:AddLabel("Name: " .. Name, true)
 	Executor:AddLabel("Version: " .. (Version and Version or "N/A"), true)
     Executor:AddDivider()
     Executor:AddLabel("Test Result: ", true)
-
 
     for Index, Result in pairs(Abysall.Environment.Results) do
 		-- fix for veloshitty 💔
@@ -84,28 +66,9 @@ return function(Window)
         Executor:AddLabel(Result, true)
     end
 
-	local InfoStuff = InfoTab:AddRightTabbox("idk how to call this :content:")
-	local SupportInfo = InfoStuff:AddTab("", "folder")
-	local Info = InfoStuff:AddTab("", "settings")
-
-	local changelogText = table.concat(LCH, "\n")
-	InfoTab:UpdateWarningBox({
-	Title = "Latest Changelog",
-	Text = changelogText,
-	IsNormal = true, 
-	Visible = true,
-	LockSize = true,
-	})
-
-	local Games = {
-		"🟢 DOORS",
-		"🔴 Universal",
-	}
-
-	for Index, GameStatuses in pairs(Games) do
-		SupportInfo:AddLabel(GameStatuses, true)
-	end
-	SupportInfo:AddDivider()
-	SupportInfo:AddLabel("Game: " .. CurrentGame, true)
-	Info:AddLabel("69 c:")
-	end
+    local Community = InfoTab:AddLeftGroupbox("Community")
+    Community:AddButton("Copy Discord Invite", function()
+	    toclipboard("https://dsc.gg/abysallhub")
+	    Library:Notify("Discord invite copied.")
+    end)
+end
