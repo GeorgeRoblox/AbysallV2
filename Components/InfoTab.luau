@@ -3,7 +3,11 @@ return function(Window)
 		"[SCRIPT]",
 		"Released Abysall V2",
 		"[DOORS]",
-		"<font color='rgb(0, 255, 0)'>+ Archives Support.</font>",
+		"<font color='rgb(0, 255, 0)'>+ Added Anti Scribbles.</font>",
+		"<font color='rgb(0, 255, 0)'>+ Added Stall Stampede of Drones.</font>",
+		"<font color='rgb(0, 255, 0)'>+ Added Anti Alma.</font>",
+		"<font color='rgb(0, 255, 0)'>+ Added Remove Ransom.</font>",
+		"<font color='rgb(255, 0, 0)'>- Removed No A-90 Damage.</font>",
 	}
 
 	local function CloneReference(Object)
@@ -55,7 +59,7 @@ return function(Window)
 	User:AddLabel(Greeting .. ", " .. LocalPlayer.Name .. ", ty for using this script you executed: " .. (BlackKing.TotalExecutions and tostring(BlackKing.TotalExecutions) or "N/A") .. " times.", true)
 	User:AddDivider()
 	User:AddButton("Copy Discord Invite", function()
-		toclipboard("https://dsc.gg/HI")
+		toclipboard("https://dsc.gg/BlackKing")
 		Library:Notify("Discord invite copied.")
 	end)
 
@@ -64,30 +68,25 @@ return function(Window)
 	}
 	local CurrentGame = GameList[game.GameId] or "Unknown (" .. game.GameId .. ")"
 
-	local function advancedHash(str)
-		local hash = 0
-		for i = 1, #str do
-			hash = (hash * 31 + str:byte(i)) % 4294967296
-		end
-		local out = {}
-		for i = 1, 16 do
-			hash = (hash * 1664525 + 1013904223) % 4294967296
-			out[i] = string.char((hash % 26) + 65)
-		end
-		return table.concat(out)
-	end
+	local Name, Version = Abysall.Environment.identifyexecutor()
+    local Executor = InfoTab:AddRightGroupbox("Executor Info")
+    Executor:AddLabel("Name: " .. Name, true)
+	Executor:AddLabel("Version: " .. (Version and Version or "N/A"), true)
+    Executor:AddDivider()
+    Executor:AddLabel("Test Result: ", true)
 
-	local function generateHashedId()
-		local id = game:GetService("RbxAnalyticsService"):GetClientId()
-		local h = advancedHash(id)
-		return string.format("%s-%s-%s-%s", h:sub(1,4), h:sub(5,8), h:sub(9,12), h:sub(13,16))
-	end
 
-	local MyHWID = generateHashedId()
+    for Index, Result in pairs(Abysall.Environment.Results) do
+		-- fix for veloshitty 💔
+		Result = Result:gsub("<", "(")
+		Result = Result:gsub(">", ")")
+		
+        Executor:AddLabel(Result, true)
+    end
 
 	local InfoStuff = InfoTab:AddRightTabbox("idk how to call this :content:")
 	local SupportInfo = InfoStuff:AddTab("", "folder")
-	local HwidInfo = InfoStuff:AddTab("", "settings")
+	local Info = InfoStuff:AddTab("", "settings")
 
 	local changelogText = table.concat(LCH, "\n")
 	InfoTab:UpdateWarningBox({
@@ -108,5 +107,5 @@ return function(Window)
 	end
 	SupportInfo:AddDivider()
 	SupportInfo:AddLabel("Game: " .. CurrentGame, true)
-
+	Info:AddLabel("69 c:")
 	end
