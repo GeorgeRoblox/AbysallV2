@@ -55,7 +55,7 @@ return function(Window)
 	User:AddLabel(Greeting .. ", " .. LocalPlayer.Name .. ", ty for using this script you executed: " .. (BlackKing.TotalExecutions and tostring(BlackKing.TotalExecutions) or "N/A") .. " times.", true)
 	User:AddDivider()
 	User:AddButton("Copy Discord Invite", function()
-		toclipboard("https://dsc.gg/BlackKing")
+		toclipboard("https://dsc.gg/HI")
 		Library:Notify("Discord invite copied.")
 	end)
 
