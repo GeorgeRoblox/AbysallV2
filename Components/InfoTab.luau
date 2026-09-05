@@ -1,18 +1,19 @@
 return function(Window)
     local LatestChangelog = {
-        "5/9/2026",
-        "<font color='rgb(0, 255, 0)'>+ Added Archives Support.</font>",
-"<font color='rgb(0, 255, 0)'>+ Added Anti Ransom.</font>",
-"<font color='rgb(0, 255, 0)'>+ Added Anti Scribbles.</font>",
-"<font color='rgb(0, 255, 0)'>+ Added Anti Drones.</font>",
-"<font color='rgb(0, 255, 0)'>+ Added Anti Stampede of Drones.</font>",
-"<font color='rgb(0, 255, 0)'>+ Added Auto ForGetMeNot.</font>",
-"<font color='rgb(0, 255, 0)'>+ Added Auto Look At Flowers.</font>",
-"<font color='rgb(0, 255, 0)'>+ Added Anti Puddle.</font>",
-"<font color='rgb(0, 255, 0)'>+ Added New Velocity Manipulation Method.</font>",
-"<font color='rgb(0, 255, 0)'>+ Added New Item Esp.</font>",
-"<font color='rgb(0, 255, 0)'>+ Added New Entity Esp.</font>",
-"<font color='rgb(0, 255, 0)'>+ Added New Hiding Spot Esp.</font>",
+        "[DOORS]",
+        "<font color='rgb(0, 255, 0)'>+ Added Full Archives Support.</font>",
+		"<font color='rgb(0, 255, 0)'>+ Added Stairwell Support.</font>",
+		"<font color='rgb(0, 255, 0)'>+ Added Anti Ransom.</font>",
+		"<font color='rgb(0, 255, 0)'>+ Added Anti Scribbles.</font>",
+		"<font color='rgb(0, 255, 0)'>+ Added Anti Drones.</font>",
+		"<font color='rgb(0, 255, 0)'>+ Added Anti Stampede of Drones.</font>",
+		"<font color='rgb(0, 255, 0)'>+ Added Auto ForGetMeNot.</font>",
+		"<font color='rgb(0, 255, 0)'>+ Added Auto Look At Flowers.</font>",
+		"<font color='rgb(0, 255, 0)'>+ Added Anti Puddle.</font>",
+		"<font color='rgb(0, 255, 0)'>+ Added New Velocity Manipulation Method.</font>",
+		"<font color='rgb(0, 255, 0)'>+ Added New Item Esp.</font>",
+		"<font color='rgb(0, 255, 0)'>+ Added New Entity Esp.</font>",
+		"<font color='rgb(0, 255, 0)'>+ Added New Hiding Spot Esp.</font>",
 
     }
 
@@ -54,10 +55,14 @@ return function(Window)
     User:AddLabel("ID: " .. LocalPlayer.Name, true)
     User:AddLabel("Total Executions: " .. (Abysall.TotalExecutions and Abysall.TotalExecutions or "N/A"), true)
 
-    local Changelog = InfoTab:AddRightGroupbox("Changelog")
-    for Index, Change in pairs(LatestChangelog) do
-        Changelog:AddLabel(Change, true)
-    end
+    local changelogText = table.concat(LatestChangelog, "\n")
+    InfoTab:UpdateWarningBox({
+        Title = "Latest Changelog",
+        Text = changelogText,
+        IsNormal = true,
+        Visible = true,
+        LockSize = true,
+    })
 
     local Name, Version = Abysall.Environment.identifyexecutor()
     local Executor = InfoTab:AddRightGroupbox("Executor Info")
