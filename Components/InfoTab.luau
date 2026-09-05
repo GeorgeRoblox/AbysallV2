@@ -1,7 +1,18 @@
 return function(Window)
     local LatestChangelog = {
-        "11/7/2026",
-        "<font color='rgb(0, 255, 0)'>+ e</font>",
+        "5/9/2026",
+        "<font color='rgb(0, 255, 0)'>+ Added Archives Support.</font>",
+"<font color='rgb(0, 255, 0)'>+ Added Anti Ransom.</font>",
+"<font color='rgb(0, 255, 0)'>+ Added Anti Scribbles.</font>",
+"<font color='rgb(0, 255, 0)'>+ Added Anti Drones.</font>",
+"<font color='rgb(0, 255, 0)'>+ Added Anti Stampede of Drones.</font>",
+"<font color='rgb(0, 255, 0)'>+ Added Auto ForGetMeNot.</font>",
+"<font color='rgb(0, 255, 0)'>+ Added Auto Look At Flowers.</font>",
+"<font color='rgb(0, 255, 0)'>+ Added Anti Puddle.</font>",
+"<font color='rgb(0, 255, 0)'>+ Added New Velocity Manipulation Method.</font>",
+"<font color='rgb(0, 255, 0)'>+ Added New Item Esp.</font>",
+"<font color='rgb(0, 255, 0)'>+ Added New Entity Esp.</font>",
+"<font color='rgb(0, 255, 0)'>+ Added New Hiding Spot Esp.</font>",
 
     }
 
@@ -67,5 +78,10 @@ return function(Window)
     Community:AddButton("Copy Discord Invite", function()
 	    toclipboard("https://dsc.gg/abysallhub")
 	    Library:Notify("Discord invite copied.")
+    end)
+	    local Donation = InfoTab:AddLeftGroupbox("Donation")
+    Donation:AddButton("PayPal", function()
+	    toclipboard("https://paypal.me/BlackKingOfficial")
+	    Library:Notify("PayPal link copied.")
     end)
 end
